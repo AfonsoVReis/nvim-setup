@@ -1,80 +1,83 @@
-" Vim Plugins
-call plug#begin('~/.local/share/nvim/plugged')
-Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'preservim/nerdtree'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/vimfiler.vim'
-Plug 'Shougo/vimshell.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'sbdchd/neoformat'
-Plug 'zarnivoop/bufferline'
-Plug 'valloric/youcompleteme'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'navarasu/onedark.nvim'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
-call plug#end()
+let g:python3_host_prog="/opt/homebrew/bin/python3"
 
-" Vim Airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-set laststatus=2
+lua require('plugins')
+augroup packer_user_config
+  autocmd!
+  autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+augroup end
 
-set number
+" Import lua modules
+lua require 'impatient'
 
-" NerdTree
-map <c-b> :NERDTreeToggle<CR>
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+lua require('lsp-config')
+lua require('defaults')
+lua require('keymaps')
+lua require("which-key").setup()
+lua require('Comment').setup()
+lua require('session-manager-config')
+lua require('bufferline-config')
+lua require('lua-line-config')
+lua require('toggleterm').setup()
+lua require('telescope-config')
+lua require('treesitter-config')
+lua require('notify-config')
+lua require('tabnine-config')
+lua require("colorizer-config")
+lua require('which-key-config');
 
-" Coc.nvim
-set omnifunc=syntaxcomplete#Complete
-let g:coc_global_extensions = ["coc-tsserver","coc-eslint","coc-html","coc-css","coc-prettier","coc-json"]
-let g:coc_diagnostic_enable_sign = 1
-let g:coc_diagnostic_enable_virtualtext = 1
+" NerdTree configuration
+" Map ctrl + b to toggle NerdTree
+map <c-b> :NERDTreeToggle %<CR>
 
-" Linting:
-autocmd FileType typescript setlocal omnifunc=coc#complete
-autocmd FileType javascript setlocal omnifunc=coc#complete
-autocmd FileType html setlocal omnifunc=coc#complete
-autocmd FileType css setlocal omnifunc=coc#complete
+" Configure onedark color scheme
+colorscheme tokyonight-night
 
-" Neoformat
-let g:neoformat_auto_format = 1
-let g:neoformat_python_autopep8 = 1
+set nomagic
 
-" Syntax Highlighting
-syntax on
+ autocmd VimEnter *
+                \   if !argc()
+                \ |   Startify
+                \ |   NERDTree
+                \ |   wincmd w
+                \ | endif
 
-" Themes
-let g:onedark_config = {
-    \ 'style': 'darker',
-\}
-colorscheme onedark
+" Map cheatsheet keybinding
+nnoremap <leader>' :Cheatsheet<CR>
 
-" Auto-fix on save for ESLint
-autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx :silent !eslint --fix %
-
+" Use ctrlp for file search with custom ignores
 " ctrlp.vim
-" Use ctrlp for file search
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+let g:ctrlp_custom_ignore = 'node_modules|DS_Store|git'
 
-
-
-" keybind
+" Keybinding for moving lines up and down
 nnoremap <A-Up> <Esc>ddkP
 nnoremap <A-Down> <Esc>ddjP
-" Search and replace keybinding
-nnoremap <D-d> :Exec 'normal! v%s/\<<C-r><C-w>\>//gc'<CR>
 
+" Keybinding for search and replace
+nnoremap <D-d> :Exec 'normal! v%s/<<C-r><C-w>>//gc'<CR>
+
+" Keybindings for Telescope functionalitylua require('treesitter-config')
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+nnoremap <leader>q <cmd>bd <cr>
+
+nnoremap <leader>fs <cmd>SessionManager load_session<cr>
+" terminal maps
+autocmd TermEnter term://*toggleterm#*
+      \ tnoremap <silent><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
+" By applying the mappings this way you can pass a count to your
+" mapping to open a specific window.
+" For example: 2<C-t> will open terminal 2
+nnoremap <silent><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
+inoremap <silent><c-t> <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
+
+" indentation
+nnoremap <TAB> >>
+nnoremap <S-TAB> <<
+vnoremap <TAB> >gv
+vnoremap <S-TAB> <gv
+
 

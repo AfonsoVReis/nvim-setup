@@ -24,7 +24,7 @@ lua require('notify-config')
 lua require('tabnine-config')
 lua require("colorizer-config")
 lua require('which-key-config');
-
+lua require('mason-null-config')
 " NerdTree configuration
 " Map ctrl + b to toggle NerdTree
 map <c-b> :NERDTreeToggle %<CR>

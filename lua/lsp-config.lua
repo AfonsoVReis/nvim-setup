@@ -119,7 +119,9 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 ---
 
 require('mason').setup({})
-require('mason-lspconfig').setup({})
+require('mason-lspconfig').setup({
+  automatic_installation = true
+})
 
 local lspconfig = require('lspconfig')
 local lsp_defaults = lspconfig.util.default_config
@@ -163,9 +165,7 @@ lspconfig.eslint.setup({
 lspconfig.tsserver.setup({})
 lspconfig.html.setup({})
 lspconfig.cssls.setup({})
-lspconfig.sumneko_lua.setup({})
 lspconfig.cssls.setup({})
-
 ---
 -- Autocomplete
 ---

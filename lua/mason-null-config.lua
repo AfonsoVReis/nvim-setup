@@ -1,6 +1,5 @@
 require("mason-null-ls").setup({
     ensure_installed = { 'cspell', 'prettierd' },
-    automatic_setup = true,
 })
 
 local null_ls = require("null-ls")
@@ -11,7 +10,7 @@ local sources = {
     null_ls.builtins.diagnostics.write_good,
     null_ls.builtins.diagnostics.cspell, 
     null_ls.builtins.code_actions.cspell,
-    null_ls.builtins.formatting.prettierd.with { filetypes = { "html", "css", "markdown", "javascript", "js", "ts", "typescript" } },
+    null_ls.builtins.formatting.prettierd.with { filetypes = { "svelte", "html", "css", "markdown", "javascript", "js", "ts", "typescript" } },
 }
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})

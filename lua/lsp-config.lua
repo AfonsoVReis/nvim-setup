@@ -166,6 +166,7 @@ lspconfig.tsserver.setup({})
 lspconfig.html.setup({})
 lspconfig.cssls.setup({})
 lspconfig.cssls.setup({})
+lspconfig.svelte.setup({})
 ---
 -- Autocomplete
 ---

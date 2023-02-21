@@ -86,4 +86,5 @@ return require('packer').startup(function(use)
 	    "jose-elias-alvarez/null-ls.nvim",
 	    "jay-babu/mason-null-ls.nvim",
 	}
+	use 'sbdchd/neoformat'
 end)

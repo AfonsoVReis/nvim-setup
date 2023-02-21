@@ -23,8 +23,18 @@ lua require('treesitter-config')
 lua require('notify-config')
 lua require('tabnine-config')
 lua require("colorizer-config")
-lua require('which-key-config');
+lua require('which-key-config')
 lua require('mason-null-config')
+lua require("cheatsheet-config")
+
+
+let g:neoformat_try_node_exe = 1
+
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
+
 " NerdTree configuration
 " Map ctrl + b to toggle NerdTree
 map <c-b> :NERDTreeToggle %<CR>
@@ -52,9 +62,6 @@ let g:ctrlp_custom_ignore = 'node_modules|DS_Store|git'
 " Keybinding for moving lines up and down
 nnoremap <A-Up> <Esc>ddkP
 nnoremap <A-Down> <Esc>ddjP
-
-" Keybinding for search and replace
-nnoremap <D-d> :Exec 'normal! v%s/<<C-r><C-w>>//gc'<CR>
 
 " Keybindings for Telescope functionalitylua require('treesitter-config')
 nnoremap <leader>ff <cmd>Telescope find_files<cr>

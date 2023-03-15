@@ -15,13 +15,13 @@ lua require('keymaps')
 lua require("which-key").setup()
 lua require('Comment').setup()
 lua require('session-manager-config')
+lua require('tabnine-config')
 lua require('bufferline-config')
 lua require('lua-line-config')
 lua require('toggleterm').setup()
 lua require('telescope-config')
 lua require('treesitter-config')
 lua require('notify-config')
-lua require('tabnine-config')
 lua require("colorizer-config")
 lua require('which-key-config')
 lua require('mason-null-config')
@@ -32,7 +32,7 @@ let g:neoformat_try_node_exe = 1
 
 augroup fmt
   autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
+  autocmd BufWritePre * undojoin | Neoformat silent!
 augroup END
 
 " NerdTree configuration
